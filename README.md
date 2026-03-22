@@ -52,8 +52,32 @@ Information flows in the following way:
 6. Input validations are done automatically by the agents, based on the types of the parameters
 
 # Explanation of key design decisions
-- deepagents
-- little focus on frontend
+
+## using Streamlit on frontend
+
+With a newborn at home, my time was pretty limited during this weekend. Also, I'm far from being a frontend specialist. So, if I tried to create a fancy SPA in React, it'd:
+- make me spend more time, especially in situations where I couldn't debate the best approach with Cursor
+- add little value, as the focus of the exercise is not on UX
+
+Therefore, I decided to go with a no-brainer option for the frontend: Streamlit, which is a bit of a standard when it comes to Pythonic data apps.
+
+## using LangChain Deep Agents
+
+As per their README, "Deep Agents is an agent harness. An opinionated, ready-to-run agent out of the box. Instead of wiring up prompts, tools, and context management yourself, you get a working agent immediately and customize what you need". This is something I already use in my day-to-day work, so it was another no-brainer. 
+
+It allows me to focus on writing good descriptions for the tools and on good system prompts for the agents, barely having to worry about orchestration among them, or any other feature. For instance, if some large file has to be written to the filesystem to save space on the context window, or if I ever need a bare bones agent to handle simple inquiries, Deep Agents takes care of that for me.
+
+In the end, for the purpose of this exercise, I decided to go with a small and simple agentic architecture:
+
+```
+.
+└── Customer Support Agent: in charge of support operational tasks: create tickets, escalate them, close tickets, etc
+    ├── Master Data Sub Agent: acts as a kind of "agentic CRUD interface", providing access to "static" data like: statuses, urgencies, orders, etc
+    └── Sentiment Analysis Sub Agent: responsible for delivering the bonues feature 'Add sentiment analysis to detect customer frustration'
+```
+
+Each of them with their respective tools, enabling the agents to perform their duties while reducing the amount of space taken in their respective context windows.
+
 - no automated tests
 - no voice interaction?
 
