@@ -94,14 +94,97 @@ In the end, for the purpose of this exercise, I decided to go with a small and s
 
 Each of them with their respective tools, enabling the agents to perform their duties while reducing the amount of space taken in their respective context windows.
 
-- no automated tests
-
 # Description of potential improvements
-- better frontend
-- an agent that runs SQL queries autonomously, thus replacing all the `get` / `list` methods on repositories
 
-# Limitations
-- no login screen / support to multi tenants
-- absence of unit tests
-- lack of human supervision in the generation of frontend and SSE-related code
-- use pydantic models for agentic tools
+## add automated tests
+
+As mentioned before, my time was very limited during this weekend. Therefore, I made the conscious choice of not adding automated tests.
+
+My reasoning is:
+- the logic in all classes / methos is pretty straightforward, hence unit tests would basically verify if Python works correctly, which wouldn't add value
+- all the complexity lies in the agents / tools orchestration, which is already handled by LangChain
+
+As future improvement, I'd add unit tests for:
+- repositories (using [testcontainers](https://github.com/testcontainers/testcontainers-python))
+- tools (to verify they're invoking the appropriate repository methods)
+- routers (to verify they're invoking the proper dependencies)
+
+And I'd add UI tests (using [Playwright](https://playwright.dev/)) to verify the chat interactions are working as expected
+
+On top of that, I'd also introduce Automated Evals on [Langsmith](https://smith.langchain.com/), to verify the agents are responding within reasonable boundaries when:
+- creating tickets
+- informing valid options for master data
+- verify that rewards were offered when sentiment analysis indicated frustrated customers
+
+
+## add agent responsible for running SQL queries
+
+As you might see looking into the repositories, there are a lot of CRUD methods in there, which exist to serve the agentic tools. 
+
+This approach improves accuracy when performing database operations, but are not scalable. E.g.: every time a new table is added to the data model, a new repository and new tools need to be added.
+
+Therefore, it'd make sense to introduce an agent that can autonomously create simple queries on the fly, especially for reading data from the tables.
+
+Although this approach is definitely more scalable, it also introduces challenges, such as opening the door attacks like prompt injection, escalation of privileges, data leakage, among others. 
+
+This approach would require a comprehensive study to put safeguards in place to prevent these kinds of attachs. 
+
+Examples of countermeasures include, but are not limited to: 
+- Limiting said SQL Agent to use readonly connections
+- Have their queries running on a read replica instead of the main database, to prevent DOS-like attacks
+- Using a custom schema with access to a limited subset of tables
+- Automatically reviewing the output of said Agent to make sure it wouldn't leak data or details about the DB storage to users
+
+## better frontend
+
+In this repo I chose to use Streamlit due to limitations of time and knowledge. But I reckon the UX is very limited. 
+
+One possible improvement could be to create a React / Angular / Svelte app that offers a better UX.
+
+## Support to multi users / multi tenants
+
+The code in this repo does not worry about authentication / authorization or any others means of segregating data among different users. 
+
+This is obviously suboptimal but I considered it to be enough for the scope of this exercise.
+
+In a real world scenario, I'd introduce a login screen and use a `tenant_id` column in all tables to guarantee proper data segregation among different users, and therefore adding the logged user's `tenant_id` to all DB queries.
+
+One might ask if I'd constantly pass this `tenant_id` back and forth between controller, agents, repositories, etc, and my answer would be yes, at least in a first version of the product. My reasoning is:
+- the code is easier to read and clearer, especially when compared to techniques like Aspect Oriented Programming and other techniques to inject logged user's data in different parts of the codebase
+- agentic code is non-deterministic by nature, so the less opportunity we give agents to choose the wrong piece of data, the better.
+
+## Use pydantic models as parameters to agentic tools
+
+This point is highly debatable. 
+
+Right now the tools accept a list of parameters and this is working quite well. 
+
+One might argue that replacing a list of parameters with a Pydantic class would be a better approach. I don't oppose to that, I just don't think it's super necessary for the current state of the codebase.
+
+If this was to become a real product, I'd definitely go for this approach, as refactoring gets easier, ie, instead of changing different method signatures in a chain of calls, all I'd need to do is change a single class.
+
+# Requirements coverage
+
+1. Conversational Flow
+- Implement a bot that can engage in natural conversation with users ✅
+- Bot should collect specific information. For example, for a customer support agent, the agent would collect information about customer issues  including: order number, problem category, problem description, and urgency level ✅ 
+- Extract and validate this information into a structured format ✅
+- Handle basic error cases and invalid inputs gracefully ✅
+- Maintain conversation context throughout the interaction ✅
+
+2. Data Extraction & Storage
+- Store conversations and extracted data in a structured format (JSON) ✅
+- Implement basic data validation for collected information ✅
+- Generate a summary of the conversation with extracted key points ✅
+
+3. Technical Requirements
+- Use Python for implementation ✅
+- Implement proper error handling ✅
+- Use the LLM of your choice, considering the use case ✅
+- Use the conversational AI platform/model of your choice for text transcription and TTS ✅
+
+4. Bonus Features (Optional)
+- Implement RAG using a provided knowledge base. For example, for a customer support agent, knowledge of common customer issues
+- Add sentiment analysis to detect customer frustration ✅
+- Implement multi-turn conversation memory ✅
+- Add support for multiple languages
