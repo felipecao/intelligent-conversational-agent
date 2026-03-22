@@ -36,7 +36,8 @@ CREATE TABLE IF NOT EXISTS issues (
     order_id uuid NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
     category issue_category NULL,
     urgency issue_urgency NULL,
-    status issue_status NOT NULL
+    status issue_status NOT NULL,
+    conversation_summary character varying NULL
 );
 
 CREATE TABLE IF NOT EXISTS chats (

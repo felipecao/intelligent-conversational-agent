@@ -71,6 +71,7 @@ class IssueRepository:
         issue_id: UUID,
         number: Optional[str] = None,
         description: Optional[str] = None,
+        conversation_summary: Optional[str] = None,
         order_id: Optional[UUID] = None,
         category: Optional[IssueCategory] = None,
         urgency: Optional[IssueUrgency] = None,
@@ -84,6 +85,8 @@ class IssueRepository:
             issue.number = number
         if description is not None:
             issue.description = description
+        if conversation_summary is not None:
+            issue.conversation_summary = conversation_summary
         if order_id is not None:
             issue.order_id = order_id
         if category is not None:

@@ -90,6 +90,7 @@ class Issue(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     number: str
     description: str
+    conversation_summary: str
 
     order_id: uuid.UUID = Field(foreign_key="orders.id")
     order: Optional[Order] = Relationship()

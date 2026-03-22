@@ -65,6 +65,7 @@ def update_issue(
     issue_id_to_be_updated: UUID,
     number: Optional[str] = None,
     description: Optional[str] = None,
+    conversation_summary: Optional[str] = None,
     urgency: Optional[IssueUrgency] = None,
     category: Optional[IssueCategory] = None,
     order_id: Optional[UUID] = None,
@@ -79,10 +80,13 @@ def update_issue(
         category=category,
         order_id=order_id,
         status=status,
+        conversation_summary=conversation_summary,
     )
+
     if updated is not None:
         session.commit()
         session.refresh(updated)
+
     return map_issue(updated)
 
 
