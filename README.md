@@ -29,6 +29,7 @@ This repository implements:
 
 ## Start frontend
 - Run `uv run python -m streamlit run frontend/streamlit_frontend.py`
+- **Voice (optional):** use the microphone control in the app to record a message. The backend transcribes with OpenAI Whisper (`POST /voice/transcribe`) and reads replies aloud with OpenAI TTS (`POST /voice/speak`). The same `OPENAI_API_KEY` as chat is used. Allow microphone access in your browser (HTTPS or `localhost`).
 
 # System architecture overview
 

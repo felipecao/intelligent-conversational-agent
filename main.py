@@ -9,7 +9,7 @@ from fastapi.responses import JSONResponse
 load_dotenv()
 
 from app.config import expose_error_details  # noqa
-from app.routers import chat, health  # noqa
+from app.routers import chat, health, voice  # noqa
 
 logger = logging.getLogger(__name__)
 
@@ -17,6 +17,7 @@ app = FastAPI()
 
 app.include_router(health.router)
 app.include_router(chat.router)
+app.include_router(voice.router)
 
 
 @app.get("/")

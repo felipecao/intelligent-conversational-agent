@@ -41,3 +41,12 @@ class ChatCreateRequest(BaseModel):
 class ChatUpdateRequest(BaseModel):
     title: str | None = Field(default=None, min_length=1, max_length=500)
     chat_history: list[dict[str, Any]] | None = None
+
+
+class TranscribeResponse(BaseModel):
+    text: str
+
+
+class SpeakRequest(BaseModel):
+    text: str = Field(..., min_length=1, max_length=4096)
+    voice: Literal["alloy", "echo", "fable", "onyx", "nova", "shimmer"] = "alloy"
