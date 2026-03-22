@@ -54,13 +54,28 @@ Information flows in the following way:
 
 # Explanation of key design decisions
 
-## using Streamlit on frontend
+## audio models
 
-With a newborn at home, my time was pretty limited during this weekend. Also, I'm far from being a frontend specialist. So, if I tried to create a fancy SPA in React, it'd:
+I've picked `tts-1` and `whisper-1` for a few simple reasons:
+- **cost**: they're much cheaper than other more optimized models (e.g.: `tts-1`, `tts-1-hd`, `gpt-4o-audio-preview-2025-06-03`, `gpt-audio-2025-08-28`)
+- **scope**: in my tests, I considered `tts-1` and `whisper-1` accurate enough for the scope of this exercise
+- **speed**: both models demonstrated good speed when translating text <-> audio
+
+## voice interactions
+
+When sending a voice prompt, the app does 2 things:
+- invokes an endpoint for transcribing audio to text
+- writes the transcription on the prompt textbox as opposed to firing a request to backend
+
+This UX might not be considered optimal, but I decided for this approach to minimize user frustration. My angle was that it'd be frustrating for the user to speak their prompt and then have to wait a few seconds to then realize the transcription didn't go well and get a response that didn't help them. I opted for a "Human In The Loop" approach where they'd need to review the transcription before invoking the agent.
+ 
+## Frontend implementation: Streamlit vs React
+
+With a baby at home, my time was pretty limited during this weekend. Also, I'm far from being a frontend specialist. So, if I tried to create a fancy SPA in React, it'd:
 - make me spend more time, especially in situations where I couldn't debate the best approach with Cursor
 - add little value, as the focus of the exercise is not on UX
 
-Therefore, I decided to go with a no-brainer option for the frontend: Streamlit, which is a bit of a standard when it comes to Pythonic data apps.
+Therefore, I decided to go with a no-brainer option for the frontend: Streamlit, which I find to be a bit of a standard when it comes to Pythonic data apps.
 
 ## using LangChain Deep Agents
 
@@ -80,7 +95,6 @@ In the end, for the purpose of this exercise, I decided to go with a small and s
 Each of them with their respective tools, enabling the agents to perform their duties while reducing the amount of space taken in their respective context windows.
 
 - no automated tests
-- no voice interaction?
 
 # Description of potential improvements
 - better frontend
