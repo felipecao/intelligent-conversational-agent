@@ -3,7 +3,7 @@
 
 # Video demos
 
-- app: https://vimeo.com/1176148799?share=copy&fl=sv&fe=ci (03:18)
+- product demo: https://vimeo.com/1176148799?share=copy&fl=sv&fe=ci (03:18)
 - code walkthru: https://vimeo.com/1176152007?share=copy&fl=sv&fe=ci (04:21)
 
 # This repo
