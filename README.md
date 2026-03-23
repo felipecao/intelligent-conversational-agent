@@ -10,6 +10,8 @@ This repository implements:
   - [SQLModel](https://sqlmodel.tiangolo.com/) as ORM
   - [LangChain Deep Agents](https://github.com/langchain-ai/deepagents) for agents orchestration
 
+As IDE, I used Cursor with Claude Sonnet 4.6
+
 # Setup instructions
 
 ## Install uv package manager
@@ -116,7 +118,6 @@ On top of that, I'd also introduce Automated Evals on [Langsmith](https://smith.
 - informing valid options for master data
 - verify that rewards were offered when sentiment analysis indicated frustrated customers
 
-
 ## add agent responsible for running SQL queries
 
 As you might see looking into the repositories, there are a lot of CRUD methods in there, which exist to serve the agentic tools. 
@@ -140,6 +141,8 @@ Examples of countermeasures include, but are not limited to:
 In this repo I chose to use Streamlit due to limitations of time and knowledge. But I reckon the UX is very limited. 
 
 One possible improvement could be to create a React / Angular / Svelte app that offers a better UX.
+
+Another possible improvement would have been closer attention to the codebase itself. For the aforementioned reasons, I vibecoded all my way through the frontend codebase with Cursor and, looking at the codebase, it could probably benefit from some refactoring and a better split of responsibilities. But for the scope of this exercise I considered the current state of the frontend as good enough. 
 
 ## Support to multi users / multi tenants
 
