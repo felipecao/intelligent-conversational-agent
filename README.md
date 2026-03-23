@@ -1,6 +1,11 @@
 # intelligent-conversational-agent
 > Conversational AI system that simulates a Customer Support Agent for a fictional business
 
+# Video demos
+
+- app: https://vimeo.com/1176148799?share=copy&fl=sv&fe=ci (03:18)
+- code walkthru: https://vimeo.com/1176152007?share=copy&fl=sv&fe=ci (04:21)
+
 # This repo
 
 This repository implements:
