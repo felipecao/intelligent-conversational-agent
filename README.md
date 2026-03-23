@@ -61,14 +61,14 @@ Information flows in the following way:
 
 # Explanation of key design decisions
 
-## audio models
+## Audio models
 
 I've picked `tts-1` and `whisper-1` for a few simple reasons:
 - **cost**: they're much cheaper than other more optimized models (e.g.: `tts-1`, `tts-1-hd`, `gpt-4o-audio-preview-2025-06-03`, `gpt-audio-2025-08-28`)
 - **scope**: in my tests, I considered `tts-1` and `whisper-1` accurate enough for the scope of this exercise
 - **speed**: both models demonstrated good speed when translating text <-> audio
 
-## voice interactions
+## Voice interactions
 
 When sending a voice prompt, the app does 2 things:
 - invokes an endpoint for transcribing audio to text
@@ -84,7 +84,7 @@ With a baby at home, my time was pretty limited during this weekend. Also, I'm f
 
 Therefore, I decided to go with a no-brainer option for the frontend: Streamlit, which I find to be a bit of a standard when it comes to Pythonic data apps.
 
-## using LangChain Deep Agents
+## Using LangChain Deep Agents
 
 As per their README, "Deep Agents is an agent harness. An opinionated, ready-to-run agent out of the box. Instead of wiring up prompts, tools, and context management yourself, you get a working agent immediately and customize what you need". This is something I already use in my day-to-day work, so it was another no-brainer. 
 
@@ -103,7 +103,7 @@ Each of them with their respective tools, enabling the agents to perform their d
 
 # Description of potential improvements
 
-## add automated tests
+## Add automated tests
 
 As mentioned before, my time was very limited during this weekend. Therefore, I made the conscious choice of not adding automated tests.
 
@@ -123,7 +123,7 @@ On top of that, I'd also introduce Automated Evals on [Langsmith](https://smith.
 - informing valid options for master data
 - verify that rewards were offered when sentiment analysis indicated frustrated customers
 
-## add agent responsible for running SQL queries
+## Add agent responsible for running SQL queries
 
 As you might see looking into the repositories, there are a lot of CRUD methods in there, which exist to serve the agentic tools. 
 
@@ -141,7 +141,7 @@ Examples of countermeasures include, but are not limited to:
 - Using a custom schema with access to a limited subset of tables
 - Automatically reviewing the output of said Agent to make sure it wouldn't leak data or details about the DB storage to users
 
-## better frontend
+## Better frontend
 
 In this repo I chose to use Streamlit due to limitations of time and knowledge. But I reckon the UX is very limited. 
 
@@ -149,7 +149,7 @@ One possible improvement could be to create a React / Angular / Svelte app that 
 
 Another possible improvement would have been closer attention to the codebase itself. For the aforementioned reasons, I vibecoded all my way through the frontend codebase with Cursor and, looking at the codebase, it could probably benefit from some refactoring and a better split of responsibilities. But for the scope of this exercise I considered the current state of the frontend as good enough. 
 
-## Support to multi users / multi tenants
+## Support to multiple users / multiple tenants
 
 The code in this repo does not worry about authentication / authorization or any others means of segregating data among different users. 
 
