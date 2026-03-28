@@ -83,10 +83,6 @@ def update_issue(
         conversation_summary=conversation_summary,
     )
 
-    if updated is not None:
-        session.commit()
-        session.refresh(updated)
-
     return map_issue(updated)
 
 
@@ -113,8 +109,5 @@ def create_issue(
         category=category,
         urgency=urgency,
     )
-
-    session.commit()
-    session.refresh(created)
 
     return created.id
