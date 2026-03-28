@@ -103,16 +103,15 @@ Each of them with their respective tools, enabling the agents to perform their d
 
 # Description of potential improvements
 
-## Add automated tests
+## Increase test coverage
 
-As mentioned before, my time was very limited during this weekend. Therefore, I made the conscious choice of not adding automated tests.
+As mentioned before, my time was very limited during the last couple of weekends. Therefore, I made the conscious choice of adding a very limited set of automated tests.
 
 My reasoning is:
 - the logic in all classes / methos is pretty straightforward, hence unit tests would basically verify if Python works correctly, which wouldn't add value
 - all the complexity lies in the agents / tools orchestration, which is already handled by LangChain
 
 As future improvement, I'd add unit tests for:
-- repositories (using [testcontainers](https://github.com/testcontainers/testcontainers-python))
 - tools (to verify they're invoking the appropriate repository methods)
 - routers (to verify they're invoking the proper dependencies)
 
