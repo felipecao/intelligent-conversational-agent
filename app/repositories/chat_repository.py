@@ -20,7 +20,7 @@ class ChatRepository:
     def create(self, title: str, chat_history: Optional[list[Any]] = None) -> Chat:
         chat = Chat(title=title, chat_history=list(chat_history or []))
         self._session.add(chat)
-        self._session.flush()
+        self._session.commit()
         self._session.refresh(chat)
         return chat
 
@@ -39,6 +39,6 @@ class ChatRepository:
         if chat_history is not None:
             chat.chat_history = list(chat_history)
         self._session.add(chat)
-        self._session.flush()
+        self._session.commit()
         self._session.refresh(chat)
         return chat

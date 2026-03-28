@@ -46,8 +46,6 @@ def _chat_summary(chat: Chat) -> ChatSummaryResponse:
 def create_chat(body: ChatCreateRequest, session: SessionDep) -> ChatDetailResponse:
     repo = ChatRepository(session)
     chat = repo.create(body.title, body.chat_history)
-    session.commit()
-    session.refresh(chat)
     return _chat_detail(chat)
 
 
@@ -101,8 +99,5 @@ def update_chat(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Chat not found"
         )
-
-    session.commit()
-    session.refresh(chat)
 
     return _chat_detail(chat)
