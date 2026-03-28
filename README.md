@@ -111,9 +111,7 @@ My reasoning is:
 - the logic in all classes / methos is pretty straightforward, hence unit tests would basically verify if Python works correctly, which wouldn't add value
 - all the complexity lies in the agents / tools orchestration, which is already handled by LangChain
 
-As future improvement, I'd add unit tests for:
-- tools (to verify they're invoking the appropriate repository methods)
-- routers (to verify they're invoking the proper dependencies)
+As future improvement, I'd add unit tests for routers (to verify they're invoking the proper dependencies)
 
 And I'd add UI tests (using [Playwright](https://playwright.dev/)) to verify the chat interactions are working as expected
 

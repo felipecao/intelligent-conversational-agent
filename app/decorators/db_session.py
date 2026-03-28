@@ -6,8 +6,6 @@ from typing import Any
 
 from sqlmodel import Session
 
-from app.entities.orm_session import engine
-
 logger = logging.getLogger(__name__)
 
 _DB_TOOL_USER_MESSAGE = (
@@ -36,6 +34,8 @@ def with_db_session(func: Callable[..., Any]) -> Callable[..., Any]:
 
     @functools.wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> Any:
+        from app.entities.orm_session import engine
+
         with Session(engine) as session:
             try:
                 return func(session, *args, **kwargs)

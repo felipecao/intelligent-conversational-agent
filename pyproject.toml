@@ -19,3 +19,7 @@ dependencies = [
     "testcontainers-postgres>=0.0.1rc1",
     "yoyo-migrations>=9.0.0",
 ]
+
+[tool.ruff.lint]
+ignore = ["E402"]
+
