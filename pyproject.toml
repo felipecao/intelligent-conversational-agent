@@ -15,5 +15,7 @@ dependencies = [
     "python-dotenv>=1.2.2",
     "sqlmodel>=0.0.37",
     "streamlit>=1.55.0",
+    "testcontainers-core>=0.0.1rc1",
+    "testcontainers-postgres>=0.0.1rc1",
     "yoyo-migrations>=9.0.0",
 ]
